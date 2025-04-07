@@ -7,13 +7,13 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document
 public class FileInfo {
     @Id
-    private ObjectId id;
+    private String id;
     private String name;
     private String contentType;
     private String path;
     private long size;
 
-    public FileInfo(ObjectId id, String name, String path, String contentType, long size) {
+    public FileInfo(String id, String name, String path, String contentType, long size) {
         this.id = id;
         this.name = name;
         this.path = path;
@@ -21,11 +21,11 @@ public class FileInfo {
         this.size = size;
     }
 
-    public ObjectId getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(ObjectId id) {
+    public void setId(String id) {
         this.id = id;
     }
 
