@@ -8,3 +8,7 @@ This project made with VSCode.
 To setup VSCode to SpringBoot, follow this instrucions:
 
 [Spring Boot in Visual Studio Code](https://code.visualstudio.com/docs/java/java-spring-boot)
+
+# SwaggerUI
+
+After start application you can open SwaggerUI at URL http://localhost:8080/swagger-ui/index.html

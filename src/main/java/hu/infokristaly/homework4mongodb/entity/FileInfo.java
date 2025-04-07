@@ -1,6 +1,5 @@
 package hu.infokristaly.homework4mongodb.entity;
 
-import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
