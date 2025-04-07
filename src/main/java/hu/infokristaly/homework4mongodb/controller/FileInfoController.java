@@ -1,0 +1,65 @@
+package hu.infokristaly.homework4mongodb.controller;
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.mongodb.client.result.UpdateResult;
+
+import hu.infokristaly.homework4mongodb.entity.FileInfo;
+import hu.infokristaly.homework4mongodb.service.FileInfoService;
+
+@RestController
+@RequestMapping("/file")
+public class FileInfoController {
+
+    @Autowired
+    private FileInfoService fileInfoService;
+    
+    @Autowired
+	MongoTemplate mongoTemplate;
+
+    @GetMapping("/{fileName}")
+    public ResponseEntity<List<FileInfo>> getFile(@PathVariable String fileName) {
+        List<FileInfo> fileInfo = fileInfoService.findByName(fileName);
+        if (fileInfo != null) {
+            return ResponseEntity.ok(fileInfo);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @PostMapping("/")
+    public void saveFileInfo(@RequestBody FileInfo fileInfo) {
+        fileInfoService.save(fileInfo);
+    }
+
+    @PutMapping("/")
+    public void updateFileInfo(@RequestBody FileInfo fileInfo) {
+        UpdateResult result = fileInfoService.updateFileInfo(fileInfo);
+
+        if(result == null) {
+            System.out.println("No file found with the given ID.");
+        } else {
+            System.out.println("File updated successfully! Rows modified: " + result.getModifiedCount());
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteFileInfoById(@PathVariable String id) {
+        try {
+            fileInfoService.deleteById(id);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+}
