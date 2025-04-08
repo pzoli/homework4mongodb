@@ -1,5 +1,6 @@
 package hu.infokristaly.homework4mongodb.service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,5 +33,8 @@ public class FileInfoService {
     }
     public Optional<FileInfo> findById(String id) {
         return fileInfoRepo.findById(id);
+    }
+    public List<FileInfo> findByDateFrom(Date date) {
+        return fileInfoRepo.findByDate(date);
     }
 }

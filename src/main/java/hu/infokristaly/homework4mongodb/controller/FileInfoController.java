@@ -1,7 +1,12 @@
 package hu.infokristaly.homework4mongodb.controller;
+
+import java.util.Date;
 import java.util.List;
+import java.util.logging.Logger;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,14 +28,35 @@ public class FileInfoController {
 
     @Autowired
     private FileInfoService fileInfoService;
-    
+
     @Autowired
-	MongoTemplate mongoTemplate;
+    MongoTemplate mongoTemplate;
+
+    private static final Logger logger = Logger.getLogger("FileInfoController");
 
     @GetMapping("/{fileName}")
     public ResponseEntity<List<FileInfo>> getFile(@PathVariable String fileName) {
         List<FileInfo> fileInfo = fileInfoService.findByName(fileName);
-        if (fileInfo != null) {
+
+        if (!fileInfo.isEmpty()) {
+            return ResponseEntity.ok(fileInfo);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @GetMapping("/getbydatefrom/{dateFrom}")
+    public ResponseEntity<List<FileInfo>> getFileByDateFrom(@PathVariable @DateTimeFormat(pattern="yyyy-MM-dd'T'HH:mm:ss") Date dateFrom) {
+        List<FileInfo> fileInfo = fileInfoService.findByDateFrom(dateFrom);
+        fileInfo.forEach(file -> {
+            logger.info("File ID: " + file.getId());
+            logger.info("File Name: " + file.getName());
+            logger.info("File Path: " + file.getPath());
+            logger.info("File Content Type: " + file.getContentType());
+            logger.info("File Size: " + file.getSize());
+            logger.info("File Created At: " + file.getCreatedAt());
+        });
+        if (!fileInfo.isEmpty()) {
             return ResponseEntity.ok(fileInfo);
         } else {
             return ResponseEntity.notFound().build();
@@ -46,7 +72,7 @@ public class FileInfoController {
     public void updateFileInfo(@RequestBody FileInfo fileInfo) {
         UpdateResult result = fileInfoService.updateFileInfo(fileInfo);
 
-        if(result == null) {
+        if (result == null) {
             System.out.println("No file found with the given ID.");
         } else {
             System.out.println("File updated successfully! Rows modified: " + result.getModifiedCount());

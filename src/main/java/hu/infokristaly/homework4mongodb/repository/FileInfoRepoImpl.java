@@ -1,4 +1,7 @@
 package hu.infokristaly.homework4mongodb.repository;
+import java.util.Date;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -14,6 +17,11 @@ public class FileInfoRepoImpl {
      
     @Autowired
     MongoTemplate mongoTemplate;
+
+    public List<FileInfo> findByDate(Date date) {
+        Query query = new Query(Criteria.where("createdAt").gt(date));
+        return mongoTemplate.find(query, FileInfo.class);
+    }
 
     public UpdateResult updateFileInfo(FileInfo fileInfo) {
         Query query = new Query(Criteria.where("id").is(fileInfo.getId()));
