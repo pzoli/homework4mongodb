@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mongodb.client.result.UpdateResult;
@@ -34,8 +35,8 @@ public class FileInfoController {
 
     private static final Logger logger = Logger.getLogger("FileInfoController");
 
-    @GetMapping("/{fileName}")
-    public ResponseEntity<List<FileInfo>> getFile(@PathVariable String fileName) {
+    @GetMapping("/")
+    public ResponseEntity<List<FileInfo>> getFile(@RequestParam String fileName) {
         List<FileInfo> fileInfo = fileInfoService.findByName(fileName);
 
         if (!fileInfo.isEmpty()) {
@@ -45,13 +46,13 @@ public class FileInfoController {
         }
     }
 
-    @GetMapping("/getbydatefrom/{dateFrom}")
-    public ResponseEntity<List<FileInfo>> getFileByDateFrom(@PathVariable @DateTimeFormat(pattern="yyyy-MM-dd'T'HH:mm:ss") Date dateFrom) {
+    @GetMapping("/getbydatefrom")
+    public ResponseEntity<List<FileInfo>> getFileByDateFrom(@RequestParam @DateTimeFormat(pattern="yyyy-MM-dd'T'HH:mm:ss") Date dateFrom) {
         List<FileInfo> fileInfo = fileInfoService.findByDateFrom(dateFrom);
         fileInfo.forEach(file -> {
             logger.info("File ID: " + file.getId());
             logger.info("File Name: " + file.getName());
-            logger.info("File Path: " + file.getPath());
+            logger.info("File Path: " + file.getDirectory());
             logger.info("File Content Type: " + file.getContentType());
             logger.info("File Size: " + file.getSize());
             logger.info("File Created At: " + file.getCreatedAt());

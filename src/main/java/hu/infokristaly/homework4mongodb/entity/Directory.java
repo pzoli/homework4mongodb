@@ -3,7 +3,6 @@ package hu.infokristaly.homework4mongodb.entity;
 import java.util.Date;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import lombok.EqualsAndHashCode;
@@ -14,13 +13,9 @@ import lombok.Setter;
 @Setter
 @EqualsAndHashCode
 @Document
-public class FileInfo {
+public class Directory {
     @Id
     private String id;
     private String name;
-    private String contentType;
-    private long size;
-    private Date createdAt;
-    @DBRef
-    private Directory directory;
+    private Date createdAt;    
 }
