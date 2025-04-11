@@ -52,7 +52,7 @@ public class FileInfoController {
         fileInfo.forEach(file -> {
             logger.info("File ID: " + file.getId());
             logger.info("File Name: " + file.getName());
-            logger.info("File Path: " + file.getDirectory());
+            logger.info("File Directory: " + file.getDirectory());
             logger.info("File Content Type: " + file.getContentType());
             logger.info("File Size: " + file.getSize());
             logger.info("File Created At: " + file.getCreatedAt());

@@ -34,8 +34,8 @@ public class DirectoryController {
     private static final Logger logger = Logger.getLogger("FileInfoController");
 
     @GetMapping("/")
-    public ResponseEntity<List<Directory>> getDirectory(@RequestParam String directoryName) {
-        List<Directory> directory = directoryService.findByName(directoryName);
+    public ResponseEntity<List<Directory>> getDirectory(@RequestParam String path) {
+        List<Directory> directory = directoryService.findByName(path);
 
         if (!directory.isEmpty()) {
             return ResponseEntity.ok(directory);

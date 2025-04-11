@@ -21,15 +21,10 @@ public class DirectoryRepoImpl {
         
         Query query = new Query(Criteria.where("id").is(directory.getId()));
         Update update = new Update();
-        update.set("name", directory.getName());
+        update.set("path", directory.getPath());
 
         UpdateResult result = mongoTemplate.updateFirst(query, update, Directory.class);
         return result;
-    }
-
-    public List<Directory> findByName(String directoryName) {
-        Query query = new Query(Criteria.where("name").is(directoryName));
-        return mongoTemplate.find(query, Directory.class);
     }
     
 }

@@ -15,7 +15,8 @@ public interface DirectoryRepo extends MongoRepository<Directory, String> {
 
     UpdateResult updateDirectory(Directory directory);
 
-    @Query(value = "{ 'name' : ?0 }", fields = "{ 'id' : 1, 'name': 1 }")
-    List<Directory> findByName(String directoryName);
+    @Query(value = "{ 'path' : {'$regex':?0 } }", fields = "{ 'id' : 1, 'path': 1 }")
+    List<Directory> findByName(String path);
+
 }
 

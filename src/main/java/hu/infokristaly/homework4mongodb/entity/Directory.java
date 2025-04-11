@@ -16,6 +16,6 @@ import lombok.Setter;
 public class Directory {
     @Id
     private String id;
-    private String name;
+    private String path;
     private Date createdAt;    
 }
