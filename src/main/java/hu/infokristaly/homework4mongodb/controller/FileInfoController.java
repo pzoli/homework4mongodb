@@ -65,18 +65,18 @@ public class FileInfoController {
     }
 
     @PostMapping("/")
-    public void saveFileInfo(@RequestBody FileInfo fileInfo) {
-        fileInfoService.save(fileInfo);
+    public FileInfo saveFileInfo(@RequestBody FileInfo fileInfo) {
+        return fileInfoService.save(fileInfo);
     }
 
     @PutMapping("/")
-    public void updateFileInfo(@RequestBody FileInfo fileInfo) {
+    public long updateFileInfo(@RequestBody FileInfo fileInfo) {
         UpdateResult result = fileInfoService.updateFileInfo(fileInfo);
 
         if (result == null) {
-            System.out.println("No file found with the given ID.");
+            return 0;
         } else {
-            System.out.println("File updated successfully! Rows modified: " + result.getModifiedCount());
+            return result.getModifiedCount();
         }
     }
 

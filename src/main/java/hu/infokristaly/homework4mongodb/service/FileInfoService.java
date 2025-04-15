@@ -17,8 +17,8 @@ public class FileInfoService {
     @Autowired
     private FileInfoRepo fileInfoRepo;
 
-    public void save(FileInfo fileInfo) {
-        fileInfoRepo.save(fileInfo);
+    public FileInfo save(FileInfo fileInfo) {
+        return fileInfoRepo.save(fileInfo);
     }
     public UpdateResult updateFileInfo(FileInfo fileInfo) {
         UpdateResult result = fileInfoRepo.updateFileInfo(fileInfo);

@@ -16,8 +16,8 @@ public class DirectoryService {
     @Autowired
     private DirectoryRepo directoryRepo;
 
-    public void save(Directory directory) {
-        directoryRepo.save(directory);
+    public Directory save(Directory directory) {
+        return directoryRepo.save(directory);
     }
     public UpdateResult updateDirectory(Directory directory) {
         UpdateResult result = directoryRepo.updateDirectory(directory);
@@ -32,5 +32,10 @@ public class DirectoryService {
     }
     public Optional<Directory> findById(String id) {
         return directoryRepo.findById(id);
+    }
+
+    public String buildDirectoryHierarchy(Directory directory) {
+        String result = directoryRepo.buildDirectoryHierarchy(directory);
+        return result;
     }
 }

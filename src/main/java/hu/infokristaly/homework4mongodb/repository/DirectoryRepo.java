@@ -14,8 +14,10 @@ import hu.infokristaly.homework4mongodb.entity.Directory;
 public interface DirectoryRepo extends MongoRepository<Directory, String> {
 
     UpdateResult updateDirectory(Directory directory);
+    
+    String buildDirectoryHierarchy(Directory directory);
 
-    @Query(value = "{ 'path' : {'$regex':?0 } }", fields = "{ 'id' : 1, 'path': 1 }")
+    @Query(value = "{ 'path' : {'$regex':?0 } }", fields = "{ 'id' : 1, 'path': 1, 'parentDirectory': 1 }")
     List<Directory> findByName(String path);
 
 }

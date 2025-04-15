@@ -1,6 +1,7 @@
 package hu.infokristaly.homework4mongodb.controller;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,19 +45,29 @@ public class DirectoryController {
         }
     }
 
+    @GetMapping("/getFullPath/{id}")
+    public ResponseEntity<String> getFullPathOfDirectory(@PathVariable String id) {
+        Optional<Directory> directory = directoryService.findById(id);
+        if (!directory.isEmpty()) {
+            return ResponseEntity.ok(directoryService.buildDirectoryHierarchy(directory.get()));
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
     @PostMapping("/")
-    public void saveDirectory(@RequestBody Directory directory) {
-        directoryService.save(directory);
+    public Directory saveDirectory(@RequestBody Directory directory) {
+       return directoryService.save(directory);
     }
 
     @PutMapping("/")
-    public void updateDirectory(@RequestBody Directory directory) {
+    public long updateDirectory(@RequestBody Directory directory) {
         UpdateResult result = directoryService.updateDirectory(directory);
 
         if (result == null) {
-            System.out.println("No file found with the given ID.");
+            return 0;
         } else {
-            System.out.println("File updated successfully! Rows modified: " + result.getModifiedCount());
+            return result.getModifiedCount();
         }
     }
 
