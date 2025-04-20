@@ -42,8 +42,8 @@ public class FileInfoController {
     @Value("${spring.data.mongodb.database}")
     private String mongodatabase;
 
-    @GetMapping("/getconfig")
-    public String getMethodName() {
+    //@GetMapping("/getconfig")
+    public String getCongig() {
         return mongoUri + mongodatabase;
     }
     
