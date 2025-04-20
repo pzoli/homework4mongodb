@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
@@ -34,6 +35,18 @@ public class FileInfoController {
     MongoTemplate mongoTemplate;
 
     private static final Logger logger = Logger.getLogger("FileInfoController");
+
+    @Value("${spring.data.mongodb.uri}")
+    private String mongoUri;
+
+    @Value("${spring.data.mongodb.database}")
+    private String mongodatabase;
+
+    @GetMapping("/getconfig")
+    public String getMethodName() {
+        return mongoUri + mongodatabase;
+    }
+    
 
     @GetMapping("/")
     public ResponseEntity<List<FileInfo>> getFile(@RequestParam String fileName) {
