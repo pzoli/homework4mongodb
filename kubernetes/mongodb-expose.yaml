@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: "2025-04-19T17:32:47Z"
+  labels:
+    app: mongo-depl
+  name: mongo-depl
+  namespace: default
+  resourceVersion: "363538"
+  uid: 9f14828f-fc3c-498c-a594-82d8c36d494e
+spec:
+  allocateLoadBalancerNodePorts: true
+  clusterIP: 10.111.0.119
+  clusterIPs:
+  - 10.111.0.119
+  externalTrafficPolicy: Cluster
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+  - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+  - nodePort: 31042
+    port: 27017
+    protocol: TCP
+    targetPort: 27017
+  selector:
+    app: mongo-depl
+  sessionAffinity: None
+  type: LoadBalancer
+

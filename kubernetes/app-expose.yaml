@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    metallb.io/ip-allocated-from-pool: default
+  labels:
+    app: fileinfo-depl
+  name: fileinfo-depl
+  namespace: default
+spec:
+  allocateLoadBalancerNodePorts: true
+  clusterIP: 10.111.206.201
+  clusterIPs:
+  - 10.111.206.201
+  externalTrafficPolicy: Cluster
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+  - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+  - nodePort: 31480
+    port: 8080
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: fileinfo-depl
+  sessionAffinity: None
+  type: LoadBalancer

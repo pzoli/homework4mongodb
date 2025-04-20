@@ -1,0 +1,63 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: fileinfo-depl
+  name: fileinfo-depl
+  namespace: default
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: fileinfo-depl
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: fileinfo-depl
+    spec:
+      containers:
+      - image: pzoli77/fileinfo:latest
+        imagePullPolicy: Always
+        name: fileinfo
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        env:
+          - name: MONGODB_USER
+            valueFrom:
+              secretKeyRef:
+                name: mongodb-secret
+                key: mongo-root-username
+          - name: MONGODB_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: mongodb-secret
+                key: mongo-root-password
+          - name: MONGODB_HOST
+            valueFrom:
+              configMapKeyRef:
+                name: fileinfo-config
+                key: mongo-host
+          - name: MONGODB_PORT
+            valueFrom:
+              configMapKeyRef:
+                name: fileinfo-config
+                key: mongo-port
+          - name: MONGODB_DATABASE
+            valueFrom:
+              configMapKeyRef:
+                name: fileinfo-config
+                key: mongo-database
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30

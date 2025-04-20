@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+    name: fileinfo-config
+data:
+    mongo-host: mongo-depl
+    mongo-port: "27017"
+    mongo-database: fileinfo
