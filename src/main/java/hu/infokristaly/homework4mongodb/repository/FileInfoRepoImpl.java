@@ -29,6 +29,7 @@ public class FileInfoRepoImpl {
         update.set("name", fileInfo.getName());
         update.set("size", fileInfo.getSize());
         update.set("contentType", fileInfo.getContentType());
+        update.set("chksum", fileInfo.getChksum());
         update.set("directory", fileInfo.getDirectory());
 
         UpdateResult result = mongoTemplate.updateFirst(query, update, FileInfo.class);

@@ -21,6 +21,7 @@ public class FileInfo {
     private String contentType;
     private long size;
     private Date createdAt;
+    private String chksum;
     @DBRef
     private Directory directory;
 }

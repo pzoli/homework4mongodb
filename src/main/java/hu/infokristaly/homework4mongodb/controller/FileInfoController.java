@@ -68,6 +68,7 @@ public class FileInfoController {
             logger.info("File Directory: " + file.getDirectory());
             logger.info("File Content Type: " + file.getContentType());
             logger.info("File Size: " + file.getSize());
+            logger.info("File chksum: " + file.getChksum());
             logger.info("File Created At: " + file.getCreatedAt());
         });
         if (!fileInfo.isEmpty()) {
