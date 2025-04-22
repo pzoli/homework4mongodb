@@ -5,9 +5,13 @@ This project made for learning MongoDB with SpringBoot.
 For customize MongoDB account, set ENV variaples for connection parameters.
 
 export MONGODB_PORT=27017
+
 export MONGODB_HOST=localhost
+
 export MONGODB_DATABASE=fileinfo
+
 export MONGODB_PASSWORD=password
+
 export MONGODB_USER=username
 
 
