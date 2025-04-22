@@ -10,9 +10,9 @@ export MONGODB_HOST=localhost
 
 export MONGODB_DATABASE=fileinfo
 
-export MONGODB_PASSWORD=password
-
 export MONGODB_USER=username
+
+export MONGODB_PASSWORD=password
 
 
 This project made with VSCode.
